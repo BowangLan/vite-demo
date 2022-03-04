@@ -7,12 +7,12 @@ export default function FullScreenAnimation({
   width = "w-full md:w-2/3 xl:w-1/2",
   height = "h-full md:h-auto",
   bg = "bg-white",
-  round="roudned-xl",
+  round = "roudned-xl",
   parentFlex = "justify-center items-center",
   animateIn = "zoomIn",
   animateOut = "fadeOutUp",
   aDuration = "500ms",
-  wrapperBg = 'bg-black/70'
+  wrapperBg = "bg-black/70",
 }: any) {
   const a = `animate__${animateIn}`;
   const b = `animate__${animateOut}`;
@@ -37,30 +37,39 @@ export default function FullScreenAnimation({
     ref.current.addEventListener("animationend", endAnimation);
   }, [ref]);
 
+  const startShow = (ref: any, wref: any) => {
+    wref.current.classList.remove("hidden");
+    ref.current.classList.add(a);
+    // animate background by adding the background color class
+    setTimeout(() => {
+      if (!wref.current) return;
+      if (!wref.current.classList.contains(wrapperBg)) {
+        console.log("add wrapper background class", wrapperBg);
+        wref.current.classList.add(wrapperBg);
+      }
+    }, 50);
+  };
+
+  const startFade = (ref: any, wref: any) => {
+    if (wref.current.classList.contains("hidden")) {
+      return;
+    }
+    console.log("animate b");
+    ref.current.classList.add(b);
+    if (wref.current.classList.contains(wrapperBg)) {
+      console.log("remove background...");
+      wref.current.classList.remove(wrapperBg);
+      // wref.current.classList.add('bg-transparent');
+    }
+  };
+
   useEffect(() => {
     if (!ref.current || !wref.current) return;
     if (show) {
       console.log("animate a");
-      wref.current.classList.remove("hidden");
-
-      // animate background by adding the background color class
-      if (!wref.current.classList.contains(wrapperBg)) {
-        console.log('add class', wrapperBg);
-        wref.current.classList.remove('transparent');
-        wref.current.classList.toggle(wrapperBg);
-      }
-      ref.current.classList.add(a);
-      wref.current.classList.add("block");
+      startShow(ref, wref);
     } else {
-      if (wref.current.classList.contains("hidden")) {
-        return;
-      }
-      console.log("animate b");
-      ref.current.classList.add(b);
-      if (wref.current.classList.contains(wrapperBg)) {
-        wref.current.classList.toggle(wrapperBg);
-        wref.current.classList.add('transparent');
-      }
+      startFade(ref, wref);
     }
   }, [show]);
 
@@ -70,9 +79,13 @@ export default function FullScreenAnimation({
   };
   return (
     <div ref={wref} className={classes.wrapper}>
-      <div ref={ref} className={classes.modalContainer} style={{
-        animationDuration: aDuration
-      }}>
+      <div
+        ref={ref}
+        className={classes.modalContainer}
+        style={{
+          animationDuration: aDuration,
+        }}
+      >
         {children}
       </div>
     </div>

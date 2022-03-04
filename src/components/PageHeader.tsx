@@ -54,9 +54,9 @@ export default function PageHeader({ title, navItems }: any) {
   }, [navRef]);
 
   let classes = {
-    container: `relative w-full h-14 sm:h-12 xl:h-16 shrink-0 grow-0 flex justify-center sm:justify-between items-stretch bg-white`,
-    titleContainer: `sm:ml-4 flex items-center`,
-    titleText: `text-md font-medium tracking-wider`,
+    container: `relative w-full h-16 sm:h-12 xl:h-16 shrink-0 grow-0 flex justify-center sm:justify-between items-stretch bg-white`,
+    titleContainer: `sm:ml-5 flex items-center`,
+    titleText: `text-lg font-medium tracking-wider`,
     navContainer: `absolute left-0 top-full w-full flex flex-col gap-0 justify-center items-stretch bg-white overflow-hidden transition-all duration-500 sm:static sm:left-auto sm:top-auto sm:w-auto sm:flex-row sm:items-stretch`,
     buildNavItemContainer: (i: number) => {
       const common = `h-0 flex justify-center items-center transition-all duration-300 cursor-pointer z-50 transition-all duration-300 ease-out overflow-hidden sm:h-auto sm:px-6 sm:py-5 sm:hover:bg-sky-100 sm:z-0`;
@@ -68,7 +68,7 @@ export default function PageHeader({ title, navItems }: any) {
       );
     },
     navItemText: `tracking-wider`,
-    icon: `w-6 h-6 text-slate-500`,
+    icon: `w-7 h-7 text-slate-500`,
   };
 
   const handleNavClick = (e: MouseEvent, index: number) => {
