@@ -118,10 +118,10 @@ function App() {
 
         </div>
         {/* <PostList data={data} /> */}
-        <div className="w-full flex justify-center gap-8">
+        <div className="my-4 mx-5 flex flex-col sm:flex-row justify-center gap-0 sm:gap-8">
           <button
             ref={bref}
-            className="w-48 my-4 px-6 py-3 flex justify-center items-center bg-sky-700 text-white font-semibold text-base rounded-xl duration-500 hover:bg-sky-400"
+            className="my-2 px-6 py-3 flex justify-center items-center bg-sky-700 text-white font-semibold text-base rounded-xl duration-500 hover:bg-sky-400"
             style={{ animationDuration: '500ms' }}
             onClick={() => setShowModal(true)}
           >
@@ -129,7 +129,7 @@ function App() {
           </button>
           <button
             ref={bref}
-            className="w-48 my-4 px-6 py-3 flex justify-center items-center bg-sky-700 text-white font-semibold text-base rounded-xl duration-500 hover:bg-sky-400"
+            className="my-2 px-6 py-3 flex justify-center items-center bg-sky-700 text-white font-semibold text-base rounded-xl duration-500 hover:bg-sky-400"
             style={{ animationDuration: '500ms' }}
             onClick={() => setShowSidebar(true)}
           >
