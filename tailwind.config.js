@@ -14,7 +14,7 @@ module.exports = {
       keyframes: {
         'aw': {
           '0%': { width: '0' },
-          '100%': { width: '100%' },
+          '100%': { width: '36rem' },
         }
       }
     },
