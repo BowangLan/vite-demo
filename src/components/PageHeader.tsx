@@ -54,7 +54,7 @@ export default function PageHeader({ title, navItems }: any) {
   }, [navRef]);
 
   let classes = {
-    container: `relative w-full h-14 sm:h-12 xl:h-16 shrink-0 grow-0 flex justify-center sm:justify-between items-stretch bg-white`,
+    container: `relative sticky top-0 left-0 w-full h-14 sm:h-12 xl:h-16 shrink-0 grow-0 flex justify-center sm:justify-between items-stretch bg-white z-10`,
     titleContainer: `sm:ml-5 flex items-center`,
     titleText: `text-lg font-medium tracking-wider`,
     navContainer: `absolute left-0 top-full w-full flex flex-col gap-0 justify-center items-stretch bg-white overflow-hidden transition-all duration-500 sm:static sm:left-auto sm:top-auto sm:w-auto sm:flex-row sm:items-stretch`,

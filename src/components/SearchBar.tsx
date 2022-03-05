@@ -18,7 +18,7 @@ export default function SearchBar({
 
   const mcolor = 'sky'
   const classes = {
-    container: `max-w-xl grow flex justify-between items-center bg-white border-2 border-${mcolor}-600 rounded-2xl`,
+    container: `max-w-xl grow flex justify-between items-center bg-white border-2 border-${mcolor}-600 rounded-2xl focus:bg-${mcolor}-200`,
     input: `w-xl h-10 px-4 flex-auto bg-transparent text-sm focus:outline-none`,
     iconContainer: `w-12 h-12 flex flex-initial justify-center items-center`,
     icon: `h-6 w-6 text-${mcolor}-600`

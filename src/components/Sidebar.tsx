@@ -11,7 +11,7 @@ export default function Sidebar(props: any) {
     <FullScreenAnimation
       show={show}
       close={close}
-      widht="w-full sm:w-1/2"
+      width="w-full sm:w-1/2"
       height="h-full"
       round="rounded-none"
       bg="bg-sky-100"
