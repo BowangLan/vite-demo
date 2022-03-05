@@ -132,7 +132,9 @@ function App() {
             Open Sidebar
           </button>
         </div>
-        <UserList data={displayData} />
+        <div className="flex flex-col mb-5">
+          <UserList data={displayData} />
+        </div>
       </PageWrapper>
       <ModalExample1 show={showModal} close={() => setShowModal(false)} />
       <Sidebar show={showSidebar} close={() => setShowSidebar(false)} />

@@ -8,14 +8,14 @@ export default function TabBar({ tabs, currentTabIndex, changeTab, bg = 'bg-whit
       return common + (i === currentTabIndex ? `text-sky-500 bg-slate-100` : "text-slate-500");
     },
     iconBuilder: (i: number) => {
-      const common = `w-8 h-8 `
+      const common = `w-7 h-7 `
       // return common + (i === currentTabIndex ? `border-b-2 border-b-sky-500` : "");
       return common;
     },
     lineBuilder: (i: number) => {
       const common = `absolute bottom-3 right-50 h-[2px] bg-sky-500 transition-all duration-500 `;
       // return common + (i === currentTabIndex ? `bg-sky-500` : `bg-transparent`);
-      return common + (i === currentTabIndex ? `w-10` : `w-0`);
+      return common + (i === currentTabIndex ? `w-8` : `w-0`);
     }
   };
   return (
