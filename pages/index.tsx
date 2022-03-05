@@ -1,40 +1,24 @@
-import { useState, useEffect, useRef } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
+import { HiOutlineHome, HiOutlineMenu, HiUser } from "react-icons/hi";
+import { ModalExample1 } from "../components/Modal";
+import PageHeader from "../components/PageHeader";
+import PageWrapper from "../components/PageWrapper";
+import SearchBar from "../components/SearchBar";
+import Sidebar from "../components/Sidebar";
+import UserList from "../components/UserList";
+import styles from "../styles/Home.module.css";
 import "animate.css";
-import PageWrapper from "./components/PageWrapper";
-import PostList from "./components/PostList";
-import UserList from "./components/UserList";
-import SearchBar from "./components/SearchBar";
-import SearchBar2 from "./components/SearchBar2";
-import { HiOutlineHome, HiOutlineMenu, HiSearch, HiUser } from "react-icons/hi";
-import { ModalExample1 } from "./components/Modal";
-import PageHeader from "./components/PageHeader";
-import Sidebar from "./components/Sidebar";
-
-const title = () => {
-  return (
-    <div className="w-3/5 h-3/5 p-6 my-6 bg-yellow-50 rounded-md  hover:scale-105 ease-out duration-300">
-      <h1 className="text-yellow-800 text-2xl font-serif">
-        Some Content Title
-      </h1>
-    </div>
-  );
-};
 
 const navItems = [
-  { name: "Home", url: "home" },
-  { name: "About", url: "about" },
-  { name: "Card", url: "Card" },
+  { name: "Home", url: "home", icon: HiOutlineHome },
+  { name: "About", url: "about", icon: HiOutlineMenu },
+  { name: "Card", url: "Card", icon: HiUser },
 ];
 
-const tabs = [
-  { icon: HiOutlineHome },
-  { icon: HiOutlineMenu },
-  { icon: HiUser },
-];
-
-function App() {
+const Home = () => {
   const [displayData, setDisplayData] = useState([]);
   const [data, setData] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -101,7 +85,7 @@ function App() {
   return (
     <>
       <PageWrapper
-        tabs={tabs}
+        tabs={navItems}
         currentTabIndex={currentTabIndex}
         changeTab={changeTab}
       >
@@ -140,6 +124,6 @@ function App() {
       <Sidebar show={showSidebar} close={() => setShowSidebar(false)} />
     </>
   );
-}
+};
 
-export default App;
+export default Home;

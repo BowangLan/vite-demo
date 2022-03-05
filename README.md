@@ -1,17 +1,6 @@
-# vite-demo
+# econ-app
 
-My React playground. Creating different components from scratch using TailwindCSS. 
+Technologies used:
 
-## Updates
-
-### 2022-03-05
-
-Changed framework from Vite to Next.js.
-
-## Current Implemented Components
-
- - Simple list component with hover animation (transition)
- - Basic searchbar
- - **Animated modal and sidebar**
- - Mobile tabbar with animation (transition)
- - Responsive navbar with drop-down navigation menu for mobile
+ - TailwindCSS
+ - animate.css for animation
