@@ -1,22 +1,13 @@
+import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { HiOutlineMenu, HiUser } from "react-icons/hi";
-import IconWrapper from './IconWrapper';
+import IconWrapper from "./IconWrapper";
+import navItems from "../config/nav";
+import useCurrentTab from "../hooks/useCurrentTab";
 
-// const IconWrapper = ({ children, onClick, side = 'left' }: any) => {
-//   const classes = {
-//     iconContainer: `sm:hidden absolute ${side}-0 h-full px-4 flex justify-center items-center`,
-//     icon: `w-6 h-6 text-slate-500`,
-//   }
-
-//   return (
-//     <div className={classes.iconContainer} onClick={onClick}>
-//     {children}
-//     </div>
-//   )
-// }
-
-export default function PageHeader({ title, navItems }: any) {
-  const [currentNavIndex, setCurrentNavIndex] = useState(0);
+export default function PageHeader({ title }: any) {
+  // const [currentNavIndex, setCurrentNavIndex] = useState(0);
+  const currentNavIndex = useCurrentTab();
   const navRef = useRef<HTMLDivElement>(null);
 
   const hideMobileNav = (navRef: any) => {
@@ -59,7 +50,7 @@ export default function PageHeader({ title, navItems }: any) {
     titleText: `text-lg font-medium tracking-wider`,
     navContainer: `absolute left-0 top-full w-full flex flex-col gap-0 justify-center items-stretch bg-white overflow-hidden transition-all duration-500 sm:static sm:left-auto sm:top-auto sm:w-auto sm:flex-row sm:items-stretch`,
     buildNavItemContainer: (i: number) => {
-      const common = `h-0 flex justify-center items-center transition-all duration-300 cursor-pointer z-50 transition-all duration-300 ease-out overflow-hidden sm:h-auto sm:px-6 sm:py-5 sm:hover:bg-sky-100 sm:z-0`;
+      const common = `h-0 flex justify-center items-center tracking-wider transition-all duration-300 cursor-pointer z-50 transition-all duration-300 ease-out overflow-hidden sm:h-auto sm:px-6 sm:py-5 sm:hover:bg-sky-100 sm:z-0`;
       return (
         common +
         (i === currentNavIndex
@@ -67,18 +58,7 @@ export default function PageHeader({ title, navItems }: any) {
           : `hover:text-sky-700`)
       );
     },
-    navItemText: `tracking-wider`,
     icon: `w-7 h-7 text-slate-500`,
-  };
-
-  const handleNavClick = (e: MouseEvent, index: number) => {
-    console.log("set current nav index", index);
-    if (!navRef.current) return;
-    e.preventDefault();
-    hideMobileNav(navRef);
-    setCurrentNavIndex(() => {
-      return index;
-    });
   };
 
   return (
@@ -86,24 +66,17 @@ export default function PageHeader({ title, navItems }: any) {
       <div className={classes.titleContainer}>
         <span className={classes.titleText}>{title}</span>
       </div>
-      <IconWrapper onClick={toggleMobileNavContainer} side='left'>
+      <IconWrapper onClick={toggleMobileNavContainer} side="left">
         <HiOutlineMenu className={classes.icon} />
       </IconWrapper>
-      <IconWrapper side='right'>
+      <IconWrapper side="right">
         <HiUser className={classes.icon} />
       </IconWrapper>
       <div ref={navRef} className={classes.navContainer}>
         {navItems.map((item: any, index: number) => (
-          <div
-            key={index}
-            className={classes.buildNavItemContainer(index)}
-            onClick={(e: any) => handleNavClick(e, index)}
-            onTouchEnd={(e: any) => handleNavClick(e, index)}
-          >
-            <a href={item.url} className={classes.navItemText}>
-              {item.name}
-            </a>
-          </div>
+          <Link key={index} href={item.url} passHref>
+            <a className={classes.buildNavItemContainer(index)}>{item.name}</a>
+          </Link>
         ))}
       </div>
     </div>

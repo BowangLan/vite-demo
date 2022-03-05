@@ -4,7 +4,7 @@ import FullScreenAnimation from "./FullScreenAnimation";
 
 export const ModalExample1 = ({ show, close }: any) => {
   return (
-    <FullScreenAnimation show={show} close={close}>
+    <FullScreenAnimation show={show} close={close} aDuration="300ms">
       {/* <div className="absolute right-0 top-0">
           <span className="h-12 w-12 flex justify-center items-center" onClick={close}>
             <HiOutlineX className="h-6 w-6 text-slate-800" />

@@ -1,6 +1,19 @@
+import { useRouter } from "next/router";
 import React from "react";
+import navItems from "../config/nav";
+import useCurrentTab from "../hooks/useCurrentTab";
 
-export default function TabBar({ tabs, currentTabIndex, changeTab, bg = 'bg-white' }: any) {
+export default function TabBar({ bg = 'bg-white' }: any) {
+  const router = useRouter();
+  const currentTabIndex = useCurrentTab();
+
+  console.log("render TabBar", {
+    currentTabIndex
+  });
+
+  const changeTab = (url: string) => {
+    router.push(url);
+  }
   const classes = {
     container: `sm:hidden w-full h-2/12 flex justify-around ${bg}`,
     itemContainerBuilder: (i: number) => {
@@ -20,11 +33,11 @@ export default function TabBar({ tabs, currentTabIndex, changeTab, bg = 'bg-whit
   };
   return (
     <div className={classes.container}>
-      {tabs.map((tab: any, index: number) => (
+      {navItems.map((tab: any, index: number) => (
         <div
           key={index}
           className={classes.itemContainerBuilder(index)}
-          onClick={() => changeTab(index)}
+          onClick={() => changeTab(tab.url)}
         >
           <tab.icon className={classes.iconBuilder(index)} />
           <div className={classes.lineBuilder(index)}></div>

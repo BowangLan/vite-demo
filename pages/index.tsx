@@ -12,12 +12,6 @@ import UserList from "../components/UserList";
 import styles from "../styles/Home.module.css";
 import "animate.css";
 
-const navItems = [
-  { name: "Home", url: "home", icon: HiOutlineHome },
-  { name: "About", url: "about", icon: HiOutlineMenu },
-  { name: "Card", url: "Card", icon: HiUser },
-];
-
 const Home = () => {
   const [displayData, setDisplayData] = useState([]);
   const [data, setData] = useState([]);
@@ -26,8 +20,6 @@ const Home = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
-
-  const bref = useRef<HTMLButtonElement>(null);
 
   const changeTab = (i: number) => {
     setCurrentTabIndex(i);
@@ -42,34 +34,6 @@ const Home = () => {
       });
   }, []);
 
-  const a = "jello";
-
-  const onHover = (e: any) => {
-    if (bref.current !== null) {
-      console.log("on hover");
-      bref.current.classList.add(`animate__${a}`);
-    }
-  };
-
-  const endAnimation = (e: any) => {
-    if (bref.current !== null) {
-      console.log("end animation, removing animation class");
-      bref.current.classList.remove(`animate__${a}`);
-    }
-  };
-
-  useEffect(() => {
-    if (bref.current !== null) {
-      console.log("not null bref", bref);
-      // bref.current.addEventListener("mouseover", onHover);
-      // bref.current.addEventListener("animationend", endAnimation);
-    }
-  }, [bref]);
-
-  useEffect(() => {
-    setDisplayDataFromSearchText();
-  }, [data]);
-
   const setDisplayDataFromSearchText = () => {
     console.log("Set display data from search text:", searchText);
     if (searchText === "") {
@@ -82,14 +46,15 @@ const Home = () => {
     });
   };
 
+  useEffect(() => {
+    setDisplayDataFromSearchText();
+  }, [data]);
+
+
   return (
     <>
-      <PageWrapper
-        tabs={navItems}
-        currentTabIndex={currentTabIndex}
-        changeTab={changeTab}
-      >
-        <PageHeader title={"User Shopping"} navItems={navItems} />
+      <>
+        {/* <PageHeader title={"User Shopping"} navItems={navItems} /> */}
         <div className="mt-4 mx-5 flex justify-center">
           <SearchBar
             searchText={searchText}
@@ -100,7 +65,6 @@ const Home = () => {
         {/* <PostList data={data} /> */}
         <div className="my-4 mx-5 flex flex-col sm:flex-row justify-center gap-0 sm:gap-8">
           <button
-            ref={bref}
             className="my-2 px-6 py-3 flex justify-center items-center bg-sky-700 text-white font-semibold text-base rounded-xl duration-500 hover:bg-sky-400"
             style={{ animationDuration: "500ms" }}
             onClick={() => setShowModal(true)}
@@ -108,7 +72,6 @@ const Home = () => {
             Open My Modal
           </button>
           <button
-            ref={bref}
             className="my-2 px-6 py-3 flex justify-center items-center bg-sky-700 text-white font-semibold text-base rounded-xl duration-500 hover:bg-sky-400"
             style={{ animationDuration: "500ms" }}
             onClick={() => setShowSidebar(true)}
@@ -119,7 +82,7 @@ const Home = () => {
         <div className="flex flex-col mb-5">
           <UserList data={displayData} />
         </div>
-      </PageWrapper>
+      </>
       <ModalExample1 show={showModal} close={() => setShowModal(false)} />
       <Sidebar show={showSidebar} close={() => setShowSidebar(false)} />
     </>
