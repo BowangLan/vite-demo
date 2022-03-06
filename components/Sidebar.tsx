@@ -1,6 +1,6 @@
 import React from "react";
 import { HiOutlineX } from "react-icons/hi";
-import FullScreenAnimation from "./FullScreenAnimation";
+import FullScreenAnimation from "./layout/FullScreenAnimation";
 
 export default function Sidebar(props: any) {
   const { show, close, width = "w-auto", bg = "bg-white" } = props;

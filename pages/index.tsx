@@ -1,29 +1,18 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
-import { HiOutlineHome, HiOutlineMenu, HiUser } from "react-icons/hi";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { ModalExample1 } from "../components/Modal";
-import PageHeader from "../components/PageHeader";
-import PageWrapper from "../components/PageWrapper";
 import SearchBar from "../components/SearchBar";
 import Sidebar from "../components/Sidebar";
 import UserList from "../components/UserList";
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 import "animate.css";
 
-const Home = () => {
+const Home: NextPage = () => {
   const [displayData, setDisplayData] = useState([]);
   const [data, setData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
-
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
-
-  const changeTab = (i: number) => {
-    setCurrentTabIndex(i);
-  };
 
   useEffect(() => {
     const url = "https://randomuser.me/api/?results=100";
@@ -34,7 +23,7 @@ const Home = () => {
       });
   }, []);
 
-  const setDisplayDataFromSearchText = () => {
+  const setDisplayDataFromSearchText = useCallback(() => {
     console.log("Set display data from search text:", searchText);
     if (searchText === "") {
       setDisplayData(() => data);
@@ -44,12 +33,11 @@ const Home = () => {
         JSON.stringify(item.name).includes(searchText)
       );
     });
-  };
+  }, [data, searchText]);
 
   useEffect(() => {
     setDisplayDataFromSearchText();
-  }, [data]);
-
+  }, [data, setDisplayDataFromSearchText]);
 
   return (
     <>

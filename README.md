@@ -2,9 +2,14 @@
 
 Technologies used:
 
- - TailwindCSS
- - animate.css for animation
+- TailwindCSS
+- animate.css for animation
 
+# Updates
+
+Responsive navigation implememted.
+
+- Tabbar and Navbar will show and hide responsively and rendered correctly based on the current tab.
 
 # Notes
 
@@ -18,8 +23,9 @@ Solution 1: store current selected tab as a state using useState(). When a link 
 
 ---
 
-console.log trick: 
- - For components, use `console.log('render <component name>)`
- - For hooks, use `console.log('called <hook name>')`
+console.log trick:
+
+- For components, use `console.log('render <component name>)`
+- For hooks, use `console.log('called <hook name>')`
 
 Logging in this way helps track which components & hooks have been called or rendered, which can help improve performance.

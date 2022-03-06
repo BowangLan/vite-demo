@@ -1,51 +1,59 @@
+import React from "react";
 import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { HiOutlineMenu, HiUser } from "react-icons/hi";
 import IconWrapper from "./IconWrapper";
-import navItems from "../config/nav";
+import { navItems, siteTitle } from "../config";
 import useCurrentTab from "../hooks/useCurrentTab";
+import { networkInterfaces } from "os";
 
-export default function PageHeader({ title }: any) {
-  // const [currentNavIndex, setCurrentNavIndex] = useState(0);
-  const currentNavIndex = useCurrentTab();
-  const navRef = useRef<HTMLDivElement>(null);
+export const hideMobileNav = () => {
+  const navRef = document.getElementById("nav-container") as HTMLDivElement;
+  for (let i = 0; i < navRef.children.length; i++) {
+    const c = navRef.children[i] as HTMLAnchorElement;
+    c.style.height = "0px";
+  }
+};
 
-  const hideMobileNav = (navRef: any) => {
-    for (let i = 0; i < navRef.current.children.length; i++) {
-      navRef.current.children[i].classList.remove("h-auto", "px-6", "py-5");
-      navRef.current.children[i].classList.add("h-0");
-    }
-  };
+export const showMobileNav = () => {
+  const navRef = document.getElementById("nav-container") as HTMLDivElement;
+  for (let i = 0; i < navRef.children.length; i++) {
+    const c = navRef.children[i] as HTMLAnchorElement;
+    c.style.height = "4rem";
+  }
+};
 
-  const showMobileNav = (navRef: any) => {
-    for (let i = 0; i < navRef.current.children.length; i++) {
-      navRef.current.children[i].classList.remove("h-0");
-      navRef.current.children[i].classList.add("h-auto", "px-6", "py-5");
-    }
-  };
+export const toggleMobileNavContainer = () => {
+  console.log("toggle mobile nav container");
+  const navRef = document.getElementById("nav-container") as HTMLDivElement;
+  const c1 = navRef.children[0] as HTMLAnchorElement;
+  if (c1.style.height !== "" && c1.style.height !== "0px") {
+    // show -> hide
+    console.log("show to hide");
+    hideMobileNav();
+  } else {
+    // hide -> show
+    console.log("hide to show");
+    showMobileNav();
+  }
+};
 
-  const toggleMobileNavContainer = (e: any) => {
-    console.log("toggle mobile nav container");
-    if (!navRef.current) return;
-    if (!navRef.current.children[0].classList.contains("h-0")) {
-      // show -> hide
-      console.log("show to hide");
-      hideMobileNav(navRef);
-    } else {
-      // hide -> show
-      console.log("hide to show");
-      showMobileNav(navRef);
-    }
-  };
+export default function PageHeader({}: any) {
+  const [currentNavIndex, changeTab] = useCurrentTab();
 
-  useEffect(() => {
-    if (!navRef.current) return;
-    console.log("navRef not null");
-    navRef.current.addEventListener("touchend", toggleMobileNavContainer);
-  }, [navRef]);
+  console.log("render PageHeader", currentNavIndex);
+
+  const handleAClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, index: number) => {
+      console.log("handle changeTab, index: " + index);
+      e.preventDefault();
+      changeTab(index);
+    },
+    [changeTab]
+  );
 
   let classes = {
-    container: `relative sticky top-0 left-0 w-full h-14 sm:h-12 xl:h-16 shrink-0 grow-0 flex justify-center sm:justify-between items-stretch bg-white z-10`,
+    container: `relative sticky w-full h-full shrink-0 grow-0 flex justify-center sm:justify-between items-stretch bg-white`,
     titleContainer: `sm:ml-5 flex items-center`,
     titleText: `text-lg font-medium tracking-wider`,
     navContainer: `absolute left-0 top-full w-full flex flex-col gap-0 justify-center items-stretch bg-white overflow-hidden transition-all duration-500 sm:static sm:left-auto sm:top-auto sm:w-auto sm:flex-row sm:items-stretch`,
@@ -64,7 +72,7 @@ export default function PageHeader({ title }: any) {
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
-        <span className={classes.titleText}>{title}</span>
+        <span className={classes.titleText}>{siteTitle}</span>
       </div>
       <IconWrapper onClick={toggleMobileNavContainer} side="left">
         <HiOutlineMenu className={classes.icon} />
@@ -72,10 +80,19 @@ export default function PageHeader({ title }: any) {
       <IconWrapper side="right">
         <HiUser className={classes.icon} />
       </IconWrapper>
-      <div ref={navRef} className={classes.navContainer}>
+      <div
+        id="nav-container"
+        className={classes.navContainer}
+        onTouchEnd={toggleMobileNavContainer}
+      >
         {navItems.map((item: any, index: number) => (
           <Link key={index} href={item.url} passHref>
-            <a className={classes.buildNavItemContainer(index)}>{item.name}</a>
+            <a
+              className={classes.buildNavItemContainer(index)}
+              onClick={(e) => handleAClick(e, index)}
+            >
+              {item.name}
+            </a>
           </Link>
         ))}
       </div>

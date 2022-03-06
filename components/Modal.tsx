@@ -1,6 +1,37 @@
 import React, { useEffect, useRef, useState } from "react";
 import { HiOutlineX } from "react-icons/hi";
-import FullScreenAnimation from "./FullScreenAnimation";
+import FullScreenAnimation from "./layout/FullScreenAnimation";
+
+export const SimpleModal = ({
+  title,
+  titleColor,
+  content,
+  contentColor,
+  ...rest
+}: any) => {
+  return (
+    <FullScreenAnimation {...rest}>
+      {/* Title Bar */}
+      <div className="w-full px-6 py-4 flex justify-between items-center border-b-2 border-b-slate-100">
+        <h2
+          className={`w-auto flex-auto  text-${titleColor} text-2xl font-sans font-bold tracking-wide`}
+        >
+          {title}
+        </h2>
+        <span
+          className="h-12 w-12 flex-grow-0 flex-shrink-0 flex justify-center items-center cursor-pointer"
+          onClick={close}
+        >
+          <HiOutlineX className="h-6 w-6 text-slate-800" />
+        </span>
+      </div>
+
+      <div className="w-full px-6 py-6 border-t-slate-300 tracking-wide">
+        {content}
+      </div>
+    </FullScreenAnimation>
+  );
+};
 
 export const ModalExample1 = ({ show, close }: any) => {
   return (
@@ -24,7 +55,7 @@ export const ModalExample1 = ({ show, close }: any) => {
         </span>
       </div>
 
-      <div className="w-full p-6 border-t-slate-300 tracking-wide">
+      <div className="w-full px-6 py-6 border-t-slate-300 tracking-wide">
         <p className="">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore
           veniam iure accusamus aspernatur molestiae asperiores, quam tempore ex
